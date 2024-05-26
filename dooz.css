@@ -9,17 +9,46 @@ html{
         background-color: #6077fe;
     }
  body{
+   width: 100%;
+   height: 100%;
     background-color: #182830;
     position: relative;
+    overflow: hidden;
+ }
+ .moving-background{
+   position: relative;
+   display: flex;
+   z-index: -1;
+ }
+ .moving-background i{
+   position: relative;
+   margin: 0 4px;
+   animation: moveicon 20s linear infinite;
+   animation-duration: calc(110s / var(--i));
+ }
+ .moving-background i:nth-child(odd){
+   text-shadow: 0 0 10px #0d9b96 ,0 0 30px #31c4be , 0 0 50px #31c4be;
+ }
+ .moving-background i:nth-child(even){
+   text-shadow: 0 0 10px #bd8215, 0 0 30px #f2b237 , 0 0 50px #f2b237; 
+ }
+ 
+ @keyframes moveicon{
+   0%{
+      transform:translateY(100vh) scale(.2);
+   }
+   100%{
+      transform:translateY(-10vh) scale(1);
+   }
  }
  main{
-    width: 100%; height: 57.3rem;
+    margin-top: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
  }
  .all-father{
-    width: 35%;
+    width: 40rem;
     display: flex;
     flex-direction: column;
  }
@@ -30,10 +59,11 @@ html{
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+    padding-right: 3rem;
  }
  .xtop{
     color: #31c4be;
-    font-size: 3.7rem;
+    font-size: 3.5rem;
     padding-right: .1rem;
  }
  .otop{
@@ -76,11 +106,13 @@ html{
     flex-wrap: wrap;
     list-style-type: none;
  }
- .home-icons li{
-  width: 26%; height: 10rem;
+ .home-icons button{
+  width: 10rem; height: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
+  border: none;
   background-color:#1f3540 ;
   box-shadow: 0px 5px 0 #12232d;
   border-radius: .7rem;
@@ -89,17 +121,35 @@ html{
  transition-duration: .3s;
  position: relative;
  }
- .home-icons li .x{
+ .home-icons button .x{
    position:absolute;
-   font-size: 7rem;
+   font-size: clamp(.1rem,7rem,1000px) ;
  }
- .home-icons li .o{
+ .home-icons button .o{
    position:absolute;
-   font-size: 7rem;
+   font-size: clamp(.1rem,5rem,1000px) ;
  }
- .home-icons li:hover{
+ .home-icons button:hover{
     box-shadow: 0px 6px 0 #12232d;
     background-color:#253e4b ;
+ }
+ .home-icons button:focus{
+   animation: foucsbox .5s ease-out;
+ }
+ @keyframes foucsbox{
+   0%{
+      transform: scale(1);
+   }
+   50%{
+      transform: scale(.9);
+      transition-duration: .2s;
+      box-shadow: 0 0 40px rgb(176, 176, 176);
+   }
+   
+      100%{
+      transform: scale(1);
+      }
+   
  }
  .vaz{
     width: 90%;
@@ -170,7 +220,7 @@ html{
 .home-winner{
    position: absolute;
    width: 100%;
-   height: 100%;
+   height: 57.3rem;
    z-index: 10;
    background-color: rgba(0, 0, 0, 0.445);
    display: none;
@@ -182,7 +232,7 @@ html{
    align-items: center;
    justify-content: center;
    width: 100%;
-   height: 38%;
+   height: 43%;
    background-color: #1f3540;
 }
 .winner{
@@ -225,11 +275,69 @@ html{
 }
 .winmarkx{
    color: #31c4be;
-   font-size: 10rem !important;
+   font-size: 10rem ;
    margin-right: 2rem;
 }
 .winmarko{
    color: #f2b237;
-   font-size: 9rem !important;
+   font-size: 9rem;
    margin-right: 2rem;
+}
+@media screen and (max-width:769px) {
+   .all-father{
+      width: 73%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+   .home-icons{
+      display:flex;
+      align-items: center;
+      justify-content: center;
+   }
+   .home-icons button{
+      width: 8rem !important;
+      height: 8rem !important;
+   }
+   .vaz div{
+      width: 8rem;
+      margin: 0 .5rem;
+   }
+   .moving-background i{
+      display:none ;
+   }
+   .winmarko{
+      font-size: 6.5rem !important;
+   }
+   .winmarkx{
+      font-size: 7.5rem !important;
+   }
+   .winner div span{
+      font-size: 2rem !important;
+   }
+   .winner div{
+      padding-bottom: 0;
+   }
+   .winner span{
+      margin-top: .5rem !important;
+   }
+   .winner button{
+      margin-bottom: 1rem;
+   }
+   .show-winner{
+      height: 30%;
+      margin-bottom: 10rem;
+   }
+   .top-game{
+      padding-right: 0 !important;
+   }
+}
+@media screen and (max-width:425px){
+   .all-father{
+      width: 100%;
+   }
+   .home-icons button{
+      width: 27% !important;
+      height: 7rem !important;
+   }
 }

@@ -10,6 +10,7 @@ const showwinner=document.querySelector('.home-winner');
 const winmarker=document.querySelector('.mark-winner');
 const wonboxclose=document.querySelector('.close-won-box');
 const youguste=document.querySelector('.YG');
+const ties=document.querySelector('.ties-num');
 const winplayer=[
     [0,1,2],
     [3,4,5],
@@ -25,6 +26,7 @@ let turnplayer= `<i class="x xtop fa-solid fa-xmark"></i>`;
 let running= false;
 let winX= Number(winnumx.textContent);
 let winO= Number(winnumo.textContent);
+let drawties=Number(ties.textContent)
 let iconwinner=document.createElement('span')
 inigame()
 function inigame(){
@@ -38,7 +40,6 @@ function inigame(){
 
 function iconsclicked(){
   const cellindex=this.getAttribute("data-cell");
- 
   if(options[cellindex] != "" || !running){
     return
   }
@@ -69,6 +70,8 @@ function iconsclicked(){
                winmarker.appendChild(iconwinner);
                iconwinner.innerHTML=`<i class="winmarkx xtop fa-solid fa-xmark"></i>`;
                youguste.innerHTML=`YOU WON!`;
+               winmarker.firstChild.innerHTML=`TAKES THE ROUND`;
+               winmarker.firstChild.style.fontSize='3rem';
              } else{
                datacells[condition[0]].style.backgroundColor='#f2b237';
                datacells[condition[1]].style.backgroundColor='#f2b237';
@@ -82,7 +85,11 @@ function iconsclicked(){
                winmarker.appendChild(iconwinner);
                iconwinner.innerHTML=`<i class="winmarko otop fa-regular fa-circle"></i>`;
                youguste.innerHTML=`GUEST WON!`;
+               winmarker.firstChild.innerHTML=`TAKES THE ROUND`;
+               winmarker.firstChild.style.fontSize='3rem';
+               ties.firstChild.innerHTML=`${Number(winO+winX)}`;
              }     
+             console.log()
            break;
          }
 
@@ -91,9 +98,18 @@ function iconsclicked(){
        running=false;
     }else if(!options.includes("")){
        running=false;
+       showwinner.style.display='flex';
+       youguste.innerHTML=`NO WINNER!`;
+       winmarker.firstChild.innerHTML=`DRAW! ಠ_ಠ`;
+       winmarker.firstChild.style.color='#aabec9';
+       winmarker.firstChild.style.fontSize='4.3rem';
+       winmarker.appendChild(iconwinner);
+       iconwinner.innerHTML='';
+       drawties+=1;
     }else{
        changeplayer();
     }
+    ties.textContent=winO+winX+drawties;
    }
   updateicons(this,cellindex);
   checkwinner()
